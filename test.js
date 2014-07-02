@@ -4,7 +4,7 @@ var test = require('tap').test
 test('replaces a title-less link with an <a> element', function(t) {
 	var input = "<p>wassup my home [[target]]</p>"
 
-	var linkify = new Linkify('#/wat/')
+	var linkify = new Linkify('#/wat/').linkify
 
 	var output = linkify(input)
 
@@ -15,7 +15,7 @@ test('replaces a title-less link with an <a> element', function(t) {
 test('turns a link with a title into an <a> element', function(t) {
 	var input = "<p>wassup my home [[target|teh page]]</p>"
 
-	var linkify = new Linkify('#/wat/')
+	var linkify = new Linkify('#/wat/').linkify
 
 	var output = linkify(input)
 
@@ -26,7 +26,7 @@ test('turns a link with a title into an <a> element', function(t) {
 test('turns a link with a title into an <a> element', function(t) {
 	var input = "<p>wassup my home [[my-target.butts|teh page]]</p>"
 
-	var linkify = new Linkify('#/wat/')
+	var linkify = new Linkify('#/wat/').linkify
 
 	var output = linkify(input)
 
@@ -37,7 +37,7 @@ test('turns a link with a title into an <a> element', function(t) {
 test("Doesn't convert items inside code elements", function(t) {
 	var input = "<p><code>wassup my home [[target|teh page]]</code></p>"
 
-	var linkify = new Linkify('#/wat/')
+	var linkify = new Linkify('#/wat/').linkify
 
 	var output = linkify(input)
 
@@ -48,7 +48,7 @@ test("Doesn't convert items inside code elements", function(t) {
 test("Converts links following code elements", function(t) {
 	var input = "<p><code>wassup</code> my home [[target|teh page]]</p>"
 
-	var linkify = new Linkify('#/wut/')
+	var linkify = new Linkify('#/wut/').linkify
 
 	var output = linkify(input)
 
@@ -59,7 +59,7 @@ test("Converts links following code elements", function(t) {
 test("Converts links following code elements and newlines", function(t) {
 	var input = "<p><code>wassup</code>\n\nmy home [[target|teh page]]</p>"
 
-	var linkify = new Linkify('#/wut/')
+	var linkify = new Linkify('#/wut/').linkify
 
 	var output = linkify(input)
 
@@ -69,10 +69,27 @@ test("Converts links following code elements and newlines", function(t) {
 
 test("Testing this one string that isn't working for some reason", function(t) {
 	var input = "<p>In addition, the client is also turning <code>[[some-page-you-want-to-link-to.md|wiki-style internal links]]</code> into [[some-page-you-want-to-link-to.md|wiki-style internal links]].</p>"
-	var linkify = new Linkify('#/wut/')
+	var linkify = new Linkify('#/wut/').linkify
 
 	var output = linkify(input)
 
 	t.equal(output, '<p>In addition, the client is also turning <code>[[some-page-you-want-to-link-to.md|wiki-style internal links]]</code> into <a href="#/wut/some-page-you-want-to-link-to.md">wiki-style internal links</a>.</p>', 'equal to the string that I said it should be')
 	t.end()
+})
+
+test("Emits an event when parsing a link", function(t) {
+	t.plan(2)
+
+	var emitter = new Linkify('#/wat/')
+
+	emitter.once('link', function(pageName) {
+		t.equal('target', pageName, 'the page name matches the link target')
+	})
+	emitter.linkify("<p>wassup my home [[target|teh page]]</p>")
+
+	emitter.once('link', function(pageName) {
+		t.equal('butts', pageName, 'the page name matches the link target')
+	})
+
+	emitter.linkify("<p>wassup my home [[butts|teh page]]</p>")
 })
