@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TehShrike/noddity-linkifier.svg)](https://travis-ci.org/TehShrike/noddity-linkifier)
+
 Given an html document, turns the bracket-based link syntax into html links, in a manner very similar to MediaWiki's [Wikilinks](https://meta.wikimedia.org/wiki/Help:Link#Wikilinks).
 
 So, given a root path of `#/myposts/` the linkify function turns `[[my-page.md]]` into `<a href="#/myposts/my-page.md">my-page.md</a>`, and turns `[[super-awesome-post.md|CLICK HERE to read awesome things]]` into `<a href="#/myposts/super-awesome-post.md">CLICK HERE to read awesome things</a>`.
