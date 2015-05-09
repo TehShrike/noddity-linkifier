@@ -12,6 +12,17 @@ test('replaces a title-less link with an <a> element', function(t) {
 	t.end()
 })
 
+test('replaces a title-less link containing a "/" with an <a> element', function(t) {
+	var input = "<p>wassup my home [[target/child]]</p>"
+
+	var linkify = new Linkify('#/wat/').linkify
+
+	var output = linkify(input)
+
+	t.equal(output, '<p>wassup my home <a href="#/wat/target/child">target/child</a></p>', 'equal to the string that I said it should be')
+	t.end()
+})
+
 test('turns a link with a title into an <a> element', function(t) {
 	var input = "<p>wassup my home [[target|teh page]]</p>"
 
@@ -23,7 +34,18 @@ test('turns a link with a title into an <a> element', function(t) {
 	t.end()
 })
 
-test('turns a link with a title into an <a> element', function(t) {
+test('turns a link with a "/" and a title into an <a> element', function(t) {
+	var input = "<p>wassup my home [[target/child|teh page]]</p>"
+
+	var linkify = new Linkify('#/wat/').linkify
+
+	var output = linkify(input)
+
+	t.equal(output, '<p>wassup my home <a href="#/wat/target/child">teh page</a></p>', 'equal to the string that I said it should be')
+	t.end()
+})
+
+test('turns a link with an extension and a title into an <a> element', function(t) {
 	var input = "<p>wassup my home [[my-target.butts|teh page]]</p>"
 
 	var linkify = new Linkify('#/wat/').linkify
@@ -31,6 +53,17 @@ test('turns a link with a title into an <a> element', function(t) {
 	var output = linkify(input)
 
 	t.equal(output, '<p>wassup my home <a href="#/wat/my-target.butts">teh page</a></p>', 'equal to the string that I said it should be')
+	t.end()
+})
+
+test('turns a link with a "/" and an extension and a title into an <a> element', function(t) {
+	var input = "<p>wassup my home [[my-target/child.butts|teh page]]</p>"
+
+	var linkify = new Linkify('#/wat/').linkify
+
+	var output = linkify(input)
+
+	t.equal(output, '<p>wassup my home <a href="#/wat/my-target/child.butts">teh page</a></p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
