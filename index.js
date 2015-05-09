@@ -1,5 +1,7 @@
 var EventEmitter = require('events').EventEmitter
 
+var noddityLinkRegex = /\[\[([\/\w.-]+)(?:\|([^\]>\n]+))?\]\]/gm
+
 function numberOfOccurrances(str, input) {
 	var occurrances = 0
 	var current = input.indexOf(str)
@@ -11,7 +13,7 @@ function numberOfOccurrances(str, input) {
 }
 
 function linkify(emitter, rootPath, htmlString) {
-	return htmlString.replace(/\[\[([\w.-]+)(?:\|([^\]>\n]+))?\]\]/gm, function(found, page, linkText, offset, wholeString) {
+	return htmlString.replace(noddityLinkRegex, function(found, page, linkText, offset, wholeString) {
 		var numberOfPrecedingCodeOpeners = numberOfOccurrances('<code', wholeString.substr(0, offset))
 		var numberOfPrecedingCodeClosers = numberOfOccurrances('</code', wholeString.substr(0, offset))
 
