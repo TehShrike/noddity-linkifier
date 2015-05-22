@@ -1,5 +1,5 @@
 var Linkify = require('./index.js')
-var test = require('tap').test
+var test = require('tape')
 
 test('replaces a title-less link with an <a> element', function(t) {
 	var input = "<p>wassup my home [[target]]</p>"
