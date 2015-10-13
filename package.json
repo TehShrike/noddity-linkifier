@@ -18,9 +18,13 @@
     "url": "https://github.com/TehShrike/noddity-linkifier.git"
   },
   "devDependencies": {
+    "jsmd": "0.3.1",
     "tape": "^4.0.0"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js && jsmd readme.md"
+  },
+  "dependencies": {
+    "make-object-an-emitter": "~1.0.0"
   }
 }

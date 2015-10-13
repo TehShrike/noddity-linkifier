@@ -126,3 +126,20 @@ test("Emits an event when parsing a link", function(t) {
 
 	emitter.linkify("<p>wassup my home [[butts|teh page]]</p>")
 })
+
+test("The emitter is also a function", function(t) {
+	t.plan(2)
+
+	var emitter = new Linkify('#/wat/')
+
+	emitter.once('link', function(pageName) {
+		t.equal('target', pageName, 'the page name matches the link target')
+	})
+	emitter("<p>wassup my home [[target|teh page]]</p>")
+
+	emitter.once('link', function(pageName) {
+		t.equal('butts', pageName, 'the page name matches the link target')
+	})
+
+	emitter("<p>wassup my home [[butts|teh page]]</p>")
+})
