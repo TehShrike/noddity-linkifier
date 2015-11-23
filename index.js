@@ -18,7 +18,7 @@ function pureLinkify(emitter, rootPath, htmlString) {
 		var numberOfPrecedingCodeClosers = numberOfOccurrances('</code', wholeString.substr(0, offset))
 
 		if (numberOfPrecedingCodeOpeners !== numberOfPrecedingCodeClosers) {
-			return found
+			return found.replace('[[', '&#91;&#91;').replace(']]', '&#93;&#93;')
 		} else {
 			linkText = linkText || page
 			emitter.emit('link', page)

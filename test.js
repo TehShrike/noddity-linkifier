@@ -74,7 +74,9 @@ test("Doesn't convert items inside code elements", function(t) {
 
 	var output = linkify(input)
 
-	t.equal(output, input, 'equal to the string that I said it should be')
+	var expected = "<p><code>wassup my home &#91;&#91;target|teh page&#93;&#93;</code></p>"
+
+	t.equal(output, expected, 'equal to the string that I said it should be')
 	t.end()
 })
 
@@ -106,7 +108,7 @@ test("Testing this one string that isn't working for some reason", function(t) {
 
 	var output = linkify(input)
 
-	t.equal(output, '<p>In addition, the client is also turning <code>[[some-page-you-want-to-link-to.md|wiki-style internal links]]</code> into <a href="#/wut/some-page-you-want-to-link-to.md">wiki-style internal links</a>.</p>', 'equal to the string that I said it should be')
+	t.equal(output, '<p>In addition, the client is also turning <code>&#91;&#91;some-page-you-want-to-link-to.md|wiki-style internal links&#93;&#93;</code> into <a href="#/wut/some-page-you-want-to-link-to.md">wiki-style internal links</a>.</p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
