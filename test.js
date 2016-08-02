@@ -145,3 +145,15 @@ test("The emitter is also a function", function(t) {
 
 	emitter("<p>wassup my home [[butts|teh page]]</p>")
 })
+
+test("A post name with slashes and stuff", function(t) {
+	var testString = "[[Web/Sermons/New Testament/Revelation/Pickering's Translation/PickeringTranslationRevelation.md|translation]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/Web/Sermons/New Testament/Revelation/Pickering\'s Translation/PickeringTranslationRevelation.md">translation</a>')
+
+	t.end()
+})
