@@ -30,7 +30,7 @@ test('replaces a title-less link containing a " " with an <a> element', function
 
 	var output = linkify(input)
 
-	t.equal(output, '<p>wassup my home <a href="#/wat/target page">target page</a></p>', 'equal to the string that I said it should be')
+	t.equal(output, '<p>wassup my home <a href="#/wat/target%20page">target page</a></p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
@@ -41,7 +41,7 @@ test('replaces a title-less link containing a "," with an <a> element', function
 
 	var output = linkify(input)
 
-	t.equal(output, '<p>wassup my home <a href="#/wat/target,page">target,page</a></p>', 'equal to the string that I said it should be')
+	t.equal(output, '<p>wassup my home <a href="#/wat/target%2Cpage">target,page</a></p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
