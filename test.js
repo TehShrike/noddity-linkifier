@@ -23,6 +23,28 @@ test('replaces a title-less link containing a "/" with an <a> element', function
 	t.end()
 })
 
+test('replaces a title-less link containing a " " with an <a> element', function(t) {
+	var input = "<p>wassup my home [[target page]]</p>"
+
+	var linkify = new Linkify('#/wat/').linkify
+
+	var output = linkify(input)
+
+	t.equal(output, '<p>wassup my home <a href="#/wat/target page">target page</a></p>', 'equal to the string that I said it should be')
+	t.end()
+})
+
+test('replaces a title-less link containing a "," with an <a> element', function(t) {
+	var input = "<p>wassup my home [[target,page]]</p>"
+
+	var linkify = new Linkify('#/wat/').linkify
+
+	var output = linkify(input)
+
+	t.equal(output, '<p>wassup my home <a href="#/wat/target,page">target,page</a></p>', 'equal to the string that I said it should be')
+	t.end()
+})
+
 test('turns a link with a title into an <a> element', function(t) {
 	var input = "<p>wassup my home [[target|teh page]]</p>"
 

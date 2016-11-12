@@ -1,6 +1,6 @@
 var makeEmitter = require('make-object-an-emitter')
 
-var noddityLinkRegex = /\[\[([\/\w.-]+)(?:\|([^\]>\n]+))?\]\]/gm
+var noddityLinkRegex = /\[\[([\/\w., -]+)(?:\|([^\]>\n]+))?\]\]/gm
 
 function numberOfOccurrances(str, input) {
 	var occurrances = 0
