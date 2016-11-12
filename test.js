@@ -153,7 +153,32 @@ test("A post name with slashes and stuff", function(t) {
 
 	var output = linkify(testString)
 
-	t.equal(output, '<a href="#/wat/Web/Sermons/New Testament/Revelation/Pickering\'s Translation/PickeringTranslationRevelation.md">translation</a>')
+	t.equal(output, '<a href="#/wat/Web/Sermons/New%20Testament/Revelation/Pickering\'s%20Translation/PickeringTranslationRevelation.md">translation</a>')
+
+	t.end()
+})
+
+test("Encoding ampersands and whatnot", function(t) {
+	var testString = "[[thing&junk.yarp|BLARP]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/thing%26junk.yarp">BLARP</a>')
+
+	t.end()
+
+})
+
+test("A PK link", function(t) {
+	var testString = "[[Web/Sermons/New Testament/Revelation/Pickering's Translation/PickeringTranslationRevelation.md|translation]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/Web/Sermons/New%20Testament/Revelation/Pickering\'s%20Translation/PickeringTranslationRevelation.md">translation</a>')
 
 	t.end()
 })

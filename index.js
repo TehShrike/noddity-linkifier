@@ -1,6 +1,6 @@
 var makeEmitter = require('make-object-an-emitter')
 
-var noddityLinkRegex = /\[\[([\/\w.\-\' ]+)(?:\|([^\]>\n]+))?\]\]/gm
+var noddityLinkRegex = /\[\[([^\]\|]+)(?:\|([^\]>\n]+))?\]\]/gm
 
 function numberOfOccurrances(str, input) {
 	var occurrances = 0
@@ -10,6 +10,10 @@ function numberOfOccurrances(str, input) {
 		current = input.indexOf(str, current + 1)
 	}
 	return occurrances
+}
+
+function encodeFolderUsingUri(file) {
+	return file.split('/').map(function (part) { return encodeURIComponent(part) }).join('/')
 }
 
 function pureLinkify(emitter, rootPath, htmlString) {
@@ -22,7 +26,7 @@ function pureLinkify(emitter, rootPath, htmlString) {
 		} else {
 			linkText = linkText || page
 			emitter.emit('link', page)
-			return '<a href="' + rootPath + page + '">' + linkText + '</a>'
+			return '<a href="' + rootPath + encodeFolderUsingUri(page) + '">' + linkText + '</a>'
 		}
 	})
 }
