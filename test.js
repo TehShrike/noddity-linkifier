@@ -30,7 +30,7 @@ test('replaces a title-less link containing a " " with an <a> element', function
 
 	var output = linkify(input)
 
-	t.equal(output, '<p>wassup my home <a href="#/wat/target page">target page</a></p>', 'equal to the string that I said it should be')
+	t.equal(output, '<p>wassup my home <a href="#/wat/target%20page">target page</a></p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
@@ -41,7 +41,7 @@ test('replaces a title-less link containing a "," with an <a> element', function
 
 	var output = linkify(input)
 
-	t.equal(output, '<p>wassup my home <a href="#/wat/target,page">target,page</a></p>', 'equal to the string that I said it should be')
+	t.equal(output, '<p>wassup my home <a href="#/wat/target%2Cpage">target,page</a></p>', 'equal to the string that I said it should be')
 	t.end()
 })
 
@@ -166,4 +166,41 @@ test("The emitter is also a function", function(t) {
 	})
 
 	emitter("<p>wassup my home [[butts|teh page]]</p>")
+})
+
+test("A post name with slashes and stuff", function(t) {
+	var testString = "[[Web/Sermons/New Testament/Revelation/Pickering's Translation/PickeringTranslationRevelation.md|translation]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/Web/Sermons/New%20Testament/Revelation/Pickering\'s%20Translation/PickeringTranslationRevelation.md">translation</a>')
+
+	t.end()
+})
+
+test("Encoding ampersands and whatnot", function(t) {
+	var testString = "[[thing&junk.yarp|BLARP]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/thing%26junk.yarp">BLARP</a>')
+
+	t.end()
+
+})
+
+test("A PK link", function(t) {
+	var testString = "[[Web/Sermons/New Testament/Revelation/Pickering's Translation/PickeringTranslationRevelation.md|translation]]"
+
+	var linkify = new Linkify('#/wat/')
+
+	var output = linkify(testString)
+
+	t.equal(output, '<a href="#/wat/Web/Sermons/New%20Testament/Revelation/Pickering\'s%20Translation/PickeringTranslationRevelation.md">translation</a>')
+
+	t.end()
 })
