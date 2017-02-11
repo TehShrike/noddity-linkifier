@@ -5,6 +5,8 @@ Given an html document, turns the bracket-based link syntax into html links, in 
 Example
 =======
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/TehShrike/noddity-linkifier.svg)](https://greenkeeper.io/)
+
 ```js
 
 var Linkifier = require('.')
